@@ -21,9 +21,24 @@ public class ListaEnlazada {
             this.dato = dato;
             this.siguiente = null;
         }
-
         int dato;
         Nodo siguiente;
+
+        public int obtenerDato() {
+            return dato;
+        }
+
+        public void asignarDato(int dato) {
+            this.dato = dato;
+        }
+
+        public Nodo obtenerSiguiente() {
+            return siguiente;
+        }
+
+        public void asignarSiguiente(Nodo siguiente) {
+            this.siguiente = siguiente;
+        }
     }
 
     static ListaEnlazada crearLista() {
@@ -36,7 +51,7 @@ public class ListaEnlazada {
 
     ListaEnlazada insertarAlInicio(int x) {
         Nodo n1 = new Nodo(x);
-        n1.siguiente = this.cabeza;
+        n1.asignarSiguiente(this.cabeza);
         this.cabeza = n1;
         return this;
     }
@@ -51,11 +66,11 @@ public class ListaEnlazada {
 
         Nodo aux = this.cabeza;
 
-        while (aux.siguiente != null) {
-            aux = aux.siguiente;
+        while (aux.obtenerSiguiente() != null) {
+            aux = aux.obtenerSiguiente();
         }
 
-        aux.siguiente = n1;
+        aux.asignarSiguiente(n1);
 
         return this;
     }
@@ -64,8 +79,8 @@ public class ListaEnlazada {
         Nodo aux = this.cabeza;
 
         while (aux != null) {
-            System.out.println(aux.dato);
-            aux = aux.siguiente;
+            System.out.println(aux.obtenerDato());
+            aux = aux.obtenerSiguiente();
         }
         System.out.println("-----");
     }
@@ -76,9 +91,9 @@ public class ListaEnlazada {
             return 0;
         } else {
             Nodo aux = this.cabeza;
-            while (aux.siguiente != null) {
+            while (aux.obtenerSiguiente() != null) {
                 contador++;
-                aux = aux.siguiente;
+                aux = aux.obtenerSiguiente();
             }
             return contador;
         }
@@ -86,7 +101,7 @@ public class ListaEnlazada {
 
     ListaEnlazada borrarPrimero() {
         if (!this.esVacia()) {
-            this.cabeza = this.cabeza.siguiente;
+            this.cabeza = this.cabeza.obtenerSiguiente();
         }
         return this;
     }
@@ -95,15 +110,15 @@ public class ListaEnlazada {
         if (this.cabeza == null) {
             return this;
         }
-        if (this.cabeza.siguiente == null) {
+        if (this.cabeza.obtenerSiguiente() == null) {
             this.cabeza = null;
             return this;
         }
         Nodo aux = this.cabeza;
-        while (aux.siguiente.siguiente != null) {
-            aux = aux.siguiente;
+        while (aux.obtenerSiguiente().obtenerSiguiente() != null) {
+            aux = aux.obtenerSiguiente();
         }
-        aux.siguiente = null;
+        aux.asignarSiguiente(null);
         return this;
     }
 
@@ -111,10 +126,10 @@ public class ListaEnlazada {
         Nodo aux = cabeza;
         if (!this.esVacia()) {
             while (aux != null) {
-                if (aux.dato == buscado) {
+                if (aux.obtenerDato() == buscado) {
                     return true;
                 }
-                aux = aux.siguiente;
+                aux = aux.obtenerSiguiente();
             }
             return false;
         }
@@ -124,15 +139,15 @@ public class ListaEnlazada {
     ListaEnlazada borrarConValor(int buscado) {
         if (!this.esVacia()) {
 
-            while (cabeza != null && cabeza.dato == buscado) {
-                cabeza = cabeza.siguiente;
+            while (cabeza != null && cabeza.obtenerDato() == buscado) {
+                cabeza = cabeza.obtenerSiguiente();
             }
             Nodo aux = cabeza;
-            while (aux != null && aux.siguiente != null) {
-                if (aux.siguiente.dato == buscado) {
-                    aux.siguiente = aux.siguiente.siguiente;
+            while (aux != null && aux.obtenerSiguiente() != null) {
+                if (aux.obtenerSiguiente().obtenerDato() == buscado) {
+                    aux.asignarSiguiente(aux.obtenerSiguiente().obtenerSiguiente());
                 } else {
-                    aux = aux.siguiente;
+                    aux = aux.obtenerSiguiente();
                 }
             }
             return this;
@@ -141,16 +156,16 @@ public class ListaEnlazada {
     }
 
     int valorEnPosicion(int posicion) {
-        if (!this.esVacia()) {
+        if (!this.esVacia() && posicion < this.cantidad() && posicion >= 0) {
             Nodo aux = this.cabeza;
             int i = 0;
             while (i < posicion && aux != null) {
-                aux = aux.siguiente;
+                aux = aux.obtenerSiguiente();
                 i++;
             }
-            return aux.dato;
+            return aux.obtenerDato();
         }
-        return 0;
+        return -1; //Retorna -1 si se supero la cantidad de nodos
     }
 
     ListaEnlazada insertarEnPosicion(int valor, int posicion) {
@@ -161,11 +176,15 @@ public class ListaEnlazada {
             return this;
         }
 
+        if (posicion < 0) {
+            return this;
+        }
+
         Nodo aux = this.cabeza;
         int i = 0;
 
         while (aux != null && i < posicion - 1) {
-            aux = aux.siguiente;
+            aux = aux.obtenerSiguiente();
             i++;
         }
 
@@ -173,8 +192,8 @@ public class ListaEnlazada {
             return this;
         }
 
-        nuevo.siguiente = aux.siguiente;
-        aux.siguiente = nuevo;
+        nuevo.asignarSiguiente(aux.obtenerSiguiente());
+        aux.asignarSiguiente(nuevo);
 
         return this;
     }
