@@ -86,17 +86,14 @@ public class ListaEnlazada {
     }
 
     int cantidad() {
-        int contador = 1;
-        if (this.cabeza == null) {
-            return 0;
-        } else {
-            Nodo aux = this.cabeza;
-            while (aux.obtenerSiguiente() != null) {
-                contador++;
-                aux = aux.obtenerSiguiente();
-            }
-            return contador;
+        int contador = 0;
+        Nodo aux = this.cabeza;
+
+        while (aux != null) {
+            contador++;
+            aux = aux.obtenerSiguiente();
         }
+        return contador;
     }
 
     ListaEnlazada borrarPrimero() {

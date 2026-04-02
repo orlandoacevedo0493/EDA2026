@@ -17,5 +17,6 @@ public class ProbarLista {
         l1.insertarEnPosicion(4, 0);
         l1.mostrar();
         System.out.println(l1.valorEnPosicion(-1));
+        System.out.println(l1.cantidad());
     }
 }
