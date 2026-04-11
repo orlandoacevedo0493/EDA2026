@@ -120,17 +120,42 @@ public class ListaEnlazada {
     }
 
     boolean pertenece(int buscado) {
-        Nodo aux = cabeza;
         if (!this.esVacia()) {
-            while (aux != null) {
-                if (aux.obtenerDato() == buscado) {
-                    return true;
-                }
-                aux = aux.obtenerSiguiente();
-            }
-            return false;
+            Nodo aux = cabeza;
+            return perteneceRecursivo(buscado, aux);
         }
         return false;
+    }
+
+    private boolean perteneceRecursivo(int buscado, Nodo aux) {
+        if (aux == null) {
+            return false;
+        }
+        if (aux.dato == buscado) {
+            return true;
+        }
+        return perteneceRecursivo(buscado, aux.obtenerSiguiente());
+    }
+
+    int mayor() {
+        if (!this.esVacia()) {
+            Nodo aux = cabeza;
+            int mayor = aux.dato;
+            return mayorRecursivo(aux, mayor);
+        }
+        return -1;
+    }
+
+    private int mayorRecursivo(Nodo aux, int mayor) {
+        if (aux.dato > mayor) {
+            mayor = aux.dato;
+        }
+        if (aux.obtenerSiguiente() == null) {
+            return mayor;
+        } else {
+            aux = aux.obtenerSiguiente();
+            return mayorRecursivo(aux, mayor);
+        }
     }
 
     ListaEnlazada borrarConValor(int buscado) {
