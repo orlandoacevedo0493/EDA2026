@@ -22,7 +22,7 @@ public class ProbarAgenda {
         return a;
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         Agenda a1 = Agenda.crearAgenda();
         Agenda a2 = Agenda.crearAgenda();
         ProbarAgenda p = new ProbarAgenda();

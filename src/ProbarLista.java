@@ -28,7 +28,7 @@ public class ProbarLista {
         }
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         ProbarLista probador = new ProbarLista();
         ListaEnlazada l1 = ListaEnlazada.crearLista();
         l1.insertarAlInicio(1);

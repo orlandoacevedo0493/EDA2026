@@ -73,7 +73,7 @@ public class ClaseTP2 {
         }
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         ClaseTP2 tp = new ClaseTP2();
         int n = tp.leer();
         int matriz1[][] = new int[n][n];
