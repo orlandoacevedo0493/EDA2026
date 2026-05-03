@@ -33,7 +33,7 @@ public class ProbarLista {
     public static void main(String[] args) {
         ProbarLista probador = new ProbarLista();
         ListaEnlazada l1 = ListaEnlazada.crearLista();
-        l1.insertarAlInicio(1);
+        l1.insertarAlInicio(-20);
         l1.mostrar();
         l1.insertarAlInicio(2);
         l1.insertarEnPosicion(4, 0);
@@ -44,11 +44,6 @@ public class ProbarLista {
         System.out.println(l1.pertenece(2));
         l1.mostrar();
         System.out.println(l1.mayor());
-        l1.insertarAlFinal(9);
-        System.out.println(l1.mayor());
-        l1.mostrar();
-
-        System.out.println(probador.sumarListaRecursivo(l1, 1));
 
     }
 }
