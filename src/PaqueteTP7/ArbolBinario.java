@@ -25,7 +25,7 @@ public class ArbolBinario {
     }
 
     public boolean esABVacio() {
-        return this.derecho == null || this.izquierdo == null;
+        return this.raiz==null;
     }
 
     public void preOrden() {

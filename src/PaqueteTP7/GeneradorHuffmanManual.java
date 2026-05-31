@@ -46,6 +46,7 @@ public class GeneradorHuffmanManual {
             return ArbolBinario.arbolBinarioVacio();
         }
 
+        // 1. Creamos nuestro "bosque" (una lista normal de árboles binarios)
         List<ArbolBinario> bosque = new ArrayList<>();
 
         // 2. Convertimos cada dato inicial en una hoja y la metemos al bosque
@@ -55,27 +56,37 @@ public class GeneradorHuffmanManual {
             bosque.add(hoja);
         }
 
+        // 3. Mientras haya más de un árbol en el bosque, seguimos agrupando
         while (bosque.size() > 1) {
+
+            // Extraemos manualmente los dos árboles con la frecuencia más baja
             ArbolBinario menor1 = extraerMenor(bosque);
             ArbolBinario menor2 = extraerMenor(bosque);
 
+            // Obtenemos sus datos haciendo un "cast"
             DatoHuffman dato1 = (DatoHuffman) menor1.raiz();
             DatoHuffman dato2 = (DatoHuffman) menor2.raiz();
 
+            // Calculamos la nueva frecuencia sumada
             double sumaFrecuencias = dato1.getFrecuencia() + dato2.getFrecuencia();
             DatoHuffman datoPadre = new DatoHuffman('*', sumaFrecuencias);
 
+            // Armamos el nuevo árbol que une a los dos menores
             ArbolBinario padre = new ArbolBinario();
             padre.armarAB(menor1, datoPadre, menor2);
 
+            // Metemos el nuevo árbol de vuelta al bosque
             bosque.add(padre);
         }
+
+        // 4. El único árbol que queda en la lista es nuestro Árbol de Huffman final
         return bosque.get(0);
     }
 
     private static ArbolBinario extraerMenor(List<ArbolBinario> bosque) {
         int indiceDelMenor = 0;
 
+        // Asumimos que el primero es el menor para empezar a comparar
         DatoHuffman datoMenor = (DatoHuffman) bosque.get(0).raiz();
         double minFrecuencia = datoMenor.getFrecuencia();
 
@@ -88,6 +99,7 @@ public class GeneradorHuffmanManual {
             }
         }
 
+        // Eliminamos el menor de la lista y lo retornamos al mismo tiempo
         return bosque.remove(indiceDelMenor);
     }
 }
