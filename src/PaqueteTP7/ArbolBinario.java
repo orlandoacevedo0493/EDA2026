@@ -25,7 +25,7 @@ public class ArbolBinario {
     }
 
     public boolean esABVacio() {
-        return this.raiz==null;
+        return this.raiz == null;
     }
 
     public void preOrden() {
@@ -210,5 +210,48 @@ public class ArbolBinario {
         }
 
         return this.izquierdo.iguales(b2.izquierdo) && this.derecho.iguales(b2.derecho);
+    }
+
+    public int altura() {
+        if (this.esABVacio()) {
+            return -1;
+        }
+        return 1 + Math.max(this.izquierdo.altura(), this.derecho.altura());
+    }
+
+    public int hojas() {
+        if (this.esABVacio()) {
+            return 0;
+        }
+        if (this.izquierdo.esABVacio() && this.derecho.esABVacio()) {
+            return 1;
+        } else {
+            return this.izquierdo.hojas() + this.derecho.hojas();
+        }
+    }
+
+    public boolean esCompleto() {
+        if(this.esABVacio()){
+            return true;
+        }
+        if(this.izquierdo.esABVacio()&&this.derecho.esABVacio()){
+            return true;
+        }if(this.izquierdo.esABVacio()||this.derecho.esABVacio()){
+            return false;
+        }
+        return this.izquierdo.esCompleto()&&this.derecho.esCompleto();
+    }
+    
+    public boolean simetricos(ArbolBinario b){
+        if(this.esABVacio()&&b.esABVacio()){
+            return true;
+        }
+        if(this.esABVacio()||b.esABVacio()){
+            return false;
+        }
+        if(this.raiz!=b.raiz){
+            return false;
+        }
+        return this.izquierdo.simetricos(b.derecho)&&this.derecho.simetricos(b.izquierdo);
     }
 }

@@ -102,4 +102,6 @@ public class GeneradorHuffmanManual {
         // Eliminamos el menor de la lista y lo retornamos al mismo tiempo
         return bosque.remove(indiceDelMenor);
     }
+    
+    
 }

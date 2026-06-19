@@ -21,6 +21,7 @@ public class ProbarArbol {
         Object item9 = 9;
         Object item15 = 15;
         Object item12 = 12;
+        Object item16 = 16;
 
         ArbolBinario b10 = new ArbolBinario();
         ArbolBinario b5 = new ArbolBinario();
@@ -29,6 +30,8 @@ public class ProbarArbol {
         ArbolBinario b8 = new ArbolBinario();
         ArbolBinario b9 = new ArbolBinario();
         ArbolBinario b15 = new ArbolBinario();
+        ArbolBinario b16 = new ArbolBinario();
+        ArbolBinario b10Espejo = new ArbolBinario();
         ArbolBinario vacio = new ArbolBinario();
 
         b3.armarAB(vacio, item3, vacio);
@@ -36,16 +39,15 @@ public class ProbarArbol {
         b15.armarAB(vacio, item15, vacio);
         b8.armarAB(vacio, item8, b9);
         b5.armarAB(b3, item5, b8);
-        b20.armarAB(b15, item20, vacio);
-        b10.armarAB(b5, item10, b20);
+        b16.armarAB(vacio, item16, vacio);
 
+        b20.armarAB(b15, item20, b16);
+        b10.armarAB(b5, item10, b20);
         b10.imprimirVertical();
-        System.out.println("----------");
-        int x = nodosNivel(b10, 0);
-        System.out.println(x);
-        ArbolBinario espejo = new ArbolBinario();
-        espejo = espejo(b10);
-        espejo.imprimirVertical();
+        b10Espejo = espejo(b10);
+        ////        b10Espejo.derecho().armarAB(vacio, item9, vacio);
+//        b10Espejo.imprimirVertical();
+        System.out.println(sumaHojas(b10));
 
     }
 
@@ -73,5 +75,32 @@ public class ProbarArbol {
         }
         aux.armarAB(espejo(b.derecho()), b.raiz(), espejo(b.izquierdo()));
         return aux;
+    }
+
+    public static int maxValor(ArbolBinario a) {
+        // 1. Caso base: si el árbol está vacío, devolvemos el valor más chico posible.
+        if (a.esABVacio()) {
+            return Integer.MIN_VALUE;
+        }
+
+        // 2. Extraemos el valor del nodo actual
+        int valorActual = (int) a.raiz();
+
+        // 3. Buscamos el máximo de cada rama delegando el trabajo (Paso recursivo)
+        int maxIzq = maxValor(a.izquierdo());
+        int maxDer = maxValor(a.derecho());
+
+        // 4. El ganador absoluto es el máximo entre nuestro valor actual y los ganadores de cada rama
+        return Math.max(valorActual, Math.max(maxIzq, maxDer));
+    }
+    
+    public static int sumaHojas(ArbolBinario a){
+        if(a.esABVacio()){
+            return 0;
+        }
+        if(a.izquierdo().esABVacio()&&a.derecho().esABVacio()){
+            return (int)a.raiz();
+        }
+        return sumaHojas(a.izquierdo())+sumaHojas(a.derecho());
     }
 }
