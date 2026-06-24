@@ -14,10 +14,7 @@ public class ArbolBinario {
     private ArbolBinario izquierdo;
     private ArbolBinario derecho;
 
-    public ArbolBinario() {
-        this.izquierdo = null;
-        this.derecho = null;
-
+    private ArbolBinario() {
     }
 
     public static ArbolBinario arbolBinarioVacio() {
@@ -109,9 +106,22 @@ public class ArbolBinario {
     }
 
     public ArbolBinario armarAB(ArbolBinario izquierdo, Object item, ArbolBinario derecho) {
+        if (item == null) {
+            return null;
+        }
+        if (izquierdo == null) {
+            this.izquierdo = arbolBinarioVacio();
+        } else {
+            this.izquierdo = izquierdo;
+
+        }
+        if (derecho == null) {
+            this.derecho = arbolBinarioVacio();
+        } else {
+            this.derecho = derecho;
+
+        }
         this.raiz = item;
-        this.izquierdo = izquierdo;
-        this.derecho = derecho;
         return this;
     }
 
@@ -157,11 +167,8 @@ public class ArbolBinario {
         if (this.esABVacio()) {
             return 0;
         } else {
-            if (this.raiz != null) {
-                return 1 + this.izquierdo.cantidad() + this.derecho.cantidad();
-            }
+            return 1 + this.izquierdo.cantidad() + this.derecho.cantidad();
         }
-        return 0;
     }
 
     public int nivelDe(Object item) {
@@ -169,12 +176,21 @@ public class ArbolBinario {
             if (raiz == item) {
                 return 0;
             }
-            if (this.izquierdo.pertenece(item)) {
-                return 1 + this.izquierdo.nivelDe(item);
+            int nivelIzquierdo = this.izquierdo.nivelDe(item);
+            int nivelDerecho = this.derecho.nivelDe(item);
+
+            if (nivelIzquierdo == -1 && nivelDerecho == -1) {
+                return -1;
             }
-            if (this.derecho.pertenece(item)) {
-                return 1 + this.derecho.nivelDe(item);
+
+            if (nivelIzquierdo >= 0 && nivelDerecho >= 0) {
+                return 1 + Math.min(nivelIzquierdo, nivelDerecho);
             }
+
+            if (nivelIzquierdo == -1) {
+                return 1 + nivelDerecho;
+            }
+            return 1 + nivelIzquierdo;
         }
         return -1;
     }
@@ -231,27 +247,28 @@ public class ArbolBinario {
     }
 
     public boolean esCompleto() {
-        if(this.esABVacio()){
+        if (this.esABVacio()) {
             return true;
         }
-        if(this.izquierdo.esABVacio()&&this.derecho.esABVacio()){
+        if (this.izquierdo.esABVacio() && this.derecho.esABVacio()) {
             return true;
-        }if(this.izquierdo.esABVacio()||this.derecho.esABVacio()){
+        }
+        if (this.izquierdo.esABVacio() || this.derecho.esABVacio()) {
             return false;
         }
-        return this.izquierdo.esCompleto()&&this.derecho.esCompleto();
+        return this.izquierdo.esCompleto() && this.derecho.esCompleto();
     }
-    
-    public boolean simetricos(ArbolBinario b){
-        if(this.esABVacio()&&b.esABVacio()){
+
+    public boolean simetricos(ArbolBinario b) {
+        if (this.esABVacio() && b.esABVacio()) {
             return true;
         }
-        if(this.esABVacio()||b.esABVacio()){
+        if (this.esABVacio() || b.esABVacio()) {
             return false;
         }
-        if(this.raiz!=b.raiz){
+        if (this.raiz != b.raiz) {
             return false;
         }
-        return this.izquierdo.simetricos(b.derecho)&&this.derecho.simetricos(b.izquierdo);
+        return this.izquierdo.simetricos(b.derecho) && this.derecho.simetricos(b.izquierdo);
     }
 }

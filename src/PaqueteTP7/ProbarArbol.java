@@ -23,16 +23,16 @@ public class ProbarArbol {
         Object item12 = 12;
         Object item16 = 16;
 
-        ArbolBinario b10 = new ArbolBinario();
-        ArbolBinario b5 = new ArbolBinario();
-        ArbolBinario b20 = new ArbolBinario();
-        ArbolBinario b3 = new ArbolBinario();
-        ArbolBinario b8 = new ArbolBinario();
-        ArbolBinario b9 = new ArbolBinario();
-        ArbolBinario b15 = new ArbolBinario();
-        ArbolBinario b16 = new ArbolBinario();
-        ArbolBinario b10Espejo = new ArbolBinario();
-        ArbolBinario vacio = new ArbolBinario();
+        ArbolBinario b10 = arbolBinarioVacio();
+        ArbolBinario b5 = arbolBinarioVacio();
+        ArbolBinario b20 = arbolBinarioVacio();
+        ArbolBinario b3 = arbolBinarioVacio();
+        ArbolBinario b8 = arbolBinarioVacio();
+        ArbolBinario b9 =arbolBinarioVacio();
+        ArbolBinario b15 = arbolBinarioVacio();
+        ArbolBinario b16 = arbolBinarioVacio();
+        ArbolBinario b10Espejo = arbolBinarioVacio();
+        ArbolBinario vacio = arbolBinarioVacio();
 
         b3.armarAB(vacio, item3, vacio);
         b9.armarAB(vacio, item9, vacio);
@@ -41,14 +41,14 @@ public class ProbarArbol {
         b5.armarAB(b3, item5, b8);
         b16.armarAB(vacio, item16, vacio);
 
-        b20.armarAB(b15, item20, b16);
+        b20.armarAB(b15, item8, b16);
         b10.armarAB(b5, item10, b20);
         b10.imprimirVertical();
-        b10Espejo = espejo(b10);
-        ////        b10Espejo.derecho().armarAB(vacio, item9, vacio);
-//        b10Espejo.imprimirVertical();
-        System.out.println(sumaHojas(b10));
-
+//        b10.preOrden();
+        
+        
+        System.out.println(b10.nivelDe(item8));
+        
     }
 
     public static int suma(ArbolBinario b) {

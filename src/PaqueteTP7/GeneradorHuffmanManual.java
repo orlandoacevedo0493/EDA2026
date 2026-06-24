@@ -4,6 +4,7 @@
  */
 package PaqueteTP7;
 
+import static PaqueteTP7.ArbolBinario.arbolBinarioVacio;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class GeneradorHuffmanManual {
 
         // 2. Convertimos cada dato inicial en una hoja y la metemos al bosque
         for (DatoHuffman dato : datos) {
-            ArbolBinario hoja = new ArbolBinario();
+            ArbolBinario hoja = arbolBinarioVacio();
             hoja.armarAB(ArbolBinario.arbolBinarioVacio(), dato, ArbolBinario.arbolBinarioVacio());
             bosque.add(hoja);
         }
@@ -72,7 +73,7 @@ public class GeneradorHuffmanManual {
             DatoHuffman datoPadre = new DatoHuffman('*', sumaFrecuencias);
 
             // Armamos el nuevo árbol que une a los dos menores
-            ArbolBinario padre = new ArbolBinario();
+            ArbolBinario padre = arbolBinarioVacio();
             padre.armarAB(menor1, datoPadre, menor2);
 
             // Metemos el nuevo árbol de vuelta al bosque
